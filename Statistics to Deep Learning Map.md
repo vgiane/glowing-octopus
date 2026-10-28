@@ -35,13 +35,6 @@ Statistics side (right of each equals sign):
 - Baseline: a quantity subtracted from the reward in REINFORCE to reduce variance without changing the expected gradient.
 - Power-law regression: fitting y = a times x to the power b, which is a straight line in log-log coordinates.
 
-Other:
-
-- KL: Kullback Leibler divergence, a measure of how different two distributions are.
-- RL: reinforcement learning.
-- RLHF: reinforcement learning from human feedback, the general recipe DPO and GRPO belong to.
-- PPO: proximal policy optimization, the RL algorithm GRPO is derived from.
-
 Prerequisites used in the derivations:
 
 - Logits: the raw real-valued outputs of the network, one per vocabulary entry, before any normalization. Written z.
@@ -49,10 +42,14 @@ Prerequisites used in the derivations:
 - Partition function Z: the normalizing constant Σ_u exp(z_u) in the softmax, or more generally the sum or integral that makes an unnormalized distribution sum to one.
 - One-hot target: the observed token written as a probability vector with 1 at that token and 0 elsewhere; the Kronecker delta 1[v = x_t] seen as a distribution. All mass on one outcome.
 - Entropy H(q): −Σ_v q(v) log q(v), the expected surprise under q; the lower bound of cross-entropy against q.
+- KL: Kullback Leibler divergence, a measure of how different two distributions are.
 - Unbiased estimator: a random quantity whose expectation equals the target. The minibatch gradient is an unbiased estimator of the full gradient.
 - Hessian: the matrix of second derivatives of the loss. Describes local curvature; Newton's method divides the gradient by it.
 - Fisher information F: E[∇log p ∇log pᵀ], the expected outer product of the score. Equals the expected Hessian of the NLL under the model, so it is a curvature matrix defined from the likelihood alone. Natural gradient divides the gradient by it.
 - Prior, likelihood, posterior: p(θ) is what you believe about the parameters before data, p(D | θ) is the likelihood, and the posterior p(θ | D) ∝ p(D | θ) p(θ) is the update. MAP maximizes the posterior; MLE maximizes only the likelihood.
+- RL: reinforcement learning.
+- RLHF: reinforcement learning from human feedback, the general recipe DPO and GRPO belong to.
+- PPO: proximal policy optimization, the RL algorithm GRPO is derived from.
 - Policy π_θ(y | x): the LLM viewed as a distribution over completions y given prompt x. The reference policy π_ref is the frozen starting model. The reward r(x, y) is a scalar score for a completion.
 - Score function ∇_θ log π_θ(y): the gradient of the log probability of a sample. Its expectation under π_θ is zero, which is what makes baselines free.
 - Control variate: a quantity with known expectation subtracted from a Monte Carlo estimate to reduce variance without changing the mean. The baseline in REINFORCE is one.
