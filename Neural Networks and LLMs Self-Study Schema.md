@@ -168,12 +168,13 @@ Goal: the practice that separates a working run from a notebook demo. Not a sepa
 - **Interpretability basics**: Neel Nanda, TransformerLens tutorials; Anthropic scaling monosemanticity paper
 - **Compute arithmetic**: Transformer Inference Arithmetic (kipply blog)
 
-## Block 4: Generative models, VAEs, diffusion, flow matching (40 to 60 h)
+## Block 4: Generative models, VAEs, diffusion, flow matching (45 to 65 h)
 
 Goal: derive the ELBO, the denoising objective and the flow-matching objective; train a small diffusion or flow model on MNIST or CIFAR-10 in your repo; reuse your transformer as the backbone (a DiT). The most probabilistic family, so your statistics does most of the work.
 
 | Subject | Resource | Link | Date |
 | --- | --- | --- | --- |
+| Convolutional networks | UDL ch 10; derive conv as a weight-tied Linear layer; implement a minimal conv U-Net on MNIST | [UDL PDF](https://udlbook.github.io/udlbook/) |  |
 | VAEs and the ELBO | UDL ch 17; derive the ELBO yourself; implement a VAE on MNIST | [UDL PDF](https://udlbook.github.io/udlbook/) |  |
 | Diffusion theory | Lilian Weng, What are Diffusion Models (blog); UDL ch 18; DDPM paper | [Weng post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/), [DDPM, arXiv 2006.11239](https://arxiv.org/abs/2006.11239) |  |
 | Diffusion practice | Hugging Face Diffusion Models course, units 1 and 2; implement DDPM from scratch on MNIST, then with your transformer as backbone | [HF diffusion course](https://github.com/huggingface/diffusion-models-class) |  |
@@ -182,6 +183,7 @@ Goal: derive the ELBO, the denoising objective and the flow-matching objective; 
 
 **Comments**
 
+- **Convolutional networks**: Prerequisite for diffusion practice: the HF course and most DDPM implementations use a conv U-Net, and the DiT patchify step is a strided conv. Derive on paper: output size (n − k + 2p)/s + 1, parameter count, and conv as a Linear layer on unfolded patches with shared weights; oracle: your F.unfold plus matmul against nn.Conv2d with torch.allclose. Then build a small U-Net (two down, two up, skip connections) to reuse as the DDPM backbone. 4 to 6 h.
 - **VAEs and the ELBO**: Variational inference you already know, with an encoder network. 6 to 8 h. Keep the latent space 2-D so you can plot it.
 - **Diffusion theory**: Forward process as a Gaussian Markov chain, reverse as learned denoising, loss as a weighted score-matching objective. Derive the simplified loss yourself. 8 to 10 h.
 - **Diffusion practice**: From-scratch first, diffusers library second. Sampling steps, noise schedule, classifier-free guidance as experiments. 12 to 15 h.
@@ -192,6 +194,7 @@ Goal: derive the ELBO, the denoising objective and the flow-matching objective; 
 
 **Optional**
 
+- **Convolutional networks**: Stanford CS231n notes on ConvNets (Karpathy's original course); Ronneberger et al., U-Net (arXiv 1505.04597); LeCun et al., Gradient-Based Learning Applied to Document Recognition (1998) for LeNet-5
 - **VAEs and the ELBO**: Kingma and Welling, Auto-Encoding Variational Bayes (arXiv 1312.6114)
 - **Diffusion theory**: Song et al., Score-Based Generative Modeling through SDEs (arXiv 2011.13456) for the continuous-time view
 - **Diffusion practice**: Peebles and Xie, Scalable Diffusion Models with Transformers (DiT, arXiv 2212.09748)
@@ -269,7 +272,7 @@ Planned spend about 200 to 300 USD of the 2,000 available. Everything with learn
 - **Frontier model API credits**: Prompt it to find bugs and write a failing test, never to confirm correctness
 - **Reserve**: Spend only if it buys feedback; content is never the bottleneck
 
-Tools: Python 3.12, PyTorch 2.x, einops, pytest, tiktoken for differential tests, Hugging Face transformers, datasets, TRL, PEFT for LoRA, bitsandbytes or llama.cpp for quantisation, lm-evaluation-harness, matplotlib. Avoid frameworks that hide the training loop (Lightning, Keras) until block 2 is done.
+Tools: Python 3.15, PyTorch 2.x, einops, pytest, tiktoken for differential tests, Hugging Face transformers, datasets, TRL, PEFT for LoRA, bitsandbytes or llama.cpp for quantisation, lm-evaluation-harness, matplotlib. Avoid frameworks that hide the training loop (Lightning, Keras) until block 2 is done.
 
 ## Self-tests and schedule
 
